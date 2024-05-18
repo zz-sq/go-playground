@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"unicode"
 	"unicode/utf8"
 )
 
@@ -16,17 +17,23 @@ func main() {
 		fmt.Printf("k: %d,v: %c == %d\n", k, v, v)
 	}
 
-	var sliceInt = []int{1, 2, 4}
-	for k1, v1 := range sliceInt {
-		fmt.Printf("k1: %d, v1:  %d\n", k1, v1)
-	}
+	// 双引号中的字符串可以包含转义字符，而反引号中的字符串则不行
+	str1 := "hello, world\n"
+	fmt.Printf("%s", str1)
+	str2 := `hello, world\n`
+	fmt.Printf("%s\n", str2)
 
-	var scoreMap = make(map[string]int)
-	scoreMap["alice"] = 100
-	scoreMap["bob"] = 97
+	str2 += "this is a concat"
+	fmt.Printf("%s\n", str2)
 
-	for k1, v1 := range scoreMap {
-		fmt.Printf("k1: %s, v1:  %d\n", k1, v1)
+	numStr := "123"
+	// %c 表示输出一个字符
+	var c byte = 'A'
+	fmt.Printf("%c\n", c)
+	fmt.Printf("%d\n", c)
+
+	for _, v := range numStr {
+		fmt.Printf("%c is a digit: %t\n", v, unicode.IsDigit(v))
 	}
 
 }
