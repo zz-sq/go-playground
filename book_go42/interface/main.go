@@ -30,6 +30,15 @@ func main() {
 	// command ok 断言
 	if v, ok := a.(string); ok {
 		fmt.Printf("断言 type of a :%T\n", v)
+		v = v + " world"
+		fmt.Printf("v :%s\n", v)
+	}
+
+	// command ok 断言
+	if v, ok := a.(int); ok {
+		fmt.Printf("断言 type of a :%T\n", v)
+		v++
+		fmt.Printf("v :%d\n", v)
 	}
 
 	// switch 断言
