@@ -4,21 +4,23 @@ import (
 	"fmt"
 )
 
-func canConstruct(ransomNote string, magazine string) bool {
-	var count = make(map[rune]int)
-	for _, v := range magazine {
-		count[v] += 1
-	}
-	for _, v := range ransomNote {
-		count[v] -= 1
-		if count[v] < 0 {
-			return false
+// 题集：https://leetcode.cn/studyplan/top-interview-150/
+// https://leetcode.cn/problems/remove-element/description/?envType=study-plan-v2&envId=top-interview-150
+func removeElement(nums []int, val int) int {
+	i, j, k := 0, 0, 0
+	for ; j < len(nums); j++ {
+		if nums[j] != val {
+			nums[i] = nums[j]
+			i++
+		} else {
+			k++
 		}
 	}
-	return true
+	return k
 }
 
 func main() {
-	fmt.Println(canConstruct("aac", "aab"))
-
+	nums1 := []int{1, 2, 2, 0, 0, 0}
+	fmt.Println(removeElement(nums1, 2))
+	fmt.Println(nums1)
 }
