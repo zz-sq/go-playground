@@ -53,7 +53,36 @@
 
 // @lc code=start
 func hIndex(citations []int) int {
+	n := len(citations)
+	tmp := make([]int, n+1)
+	for _, v := range citations {
+		if v >= n {
+			tmp[n]++
+		} else {
+			tmp[v]++
+		}
+	}
+	sum, res := 0, 0
+	for i := n; i > 0; i-- {
+		sum += tmp[i]
+		cur := min(i, sum)
+		res = max(res, cur)
+	}
+	return res
+}
 
+func min(a, b int) int {
+	if a > b {
+		return b
+	}
+	return a
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
 
 // @lc code=end
