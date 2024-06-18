@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 // 题集：https://leetcode.cn/studyplan/top-interview-150/
 func jump(nums []int) int {
 	n := len(nums)
@@ -20,6 +18,5 @@ func jump(nums []int) int {
 }
 
 func main() {
-	nums1 := []int{1, 2, 3, 4, 5, 6, 7}
-	fmt.Println(jump(nums1))
+
 }
