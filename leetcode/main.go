@@ -2,24 +2,32 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
 // 题集：https://leetcode.cn/studyplan/top-interview-150/
-func reverseWords(s string) string {
-	strs := strings.Split(s, " ")
-	res := make([]string, 0)
-	for i := len(strs) - 1; i >= 0; i-- {
-		if strs[i] != "" {
-			res = append(res, strs[i])
-		}
+func convert(s string, numRows int) string {
+	if numRows < 2 {
+		return s
 	}
-	return strings.Join(res, " ")
+	res := make([][]rune, numRows)
+	i, flag := 0, -1
+	for _, v := range s {
+		res[i] = append(res[i], v)
+		if i == 0 || i == numRows-1 {
+			flag = -flag
+		}
+		i += flag
+	}
+	res2 := make([]rune, 0)
+	for i := 0; i < numRows; i++ {
+		res2 = append(res2, res[i]...)
+	}
+	return string(res2)
 }
 
-// 1 2 3 4 5
-// 3 4 5 1 2
-// -2 -2 -2 4 3
+// PAHNAPLSIIGYIR
+// PAHNAPLSIIGYIR
+// 0 -> 2n -1
 func main() {
-	fmt.Println(reverseWords("  hello world  "))
+	fmt.Println(convert("AB", 1))
 }
