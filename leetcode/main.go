@@ -5,21 +5,26 @@ import (
 )
 
 // 题集：https://leetcode.cn/studyplan/top-interview-150/
-func twoSum(numbers []int, target int) []int {
-	i, j := 0, len(numbers)-1
-	for i < j {
-		sum := numbers[i] + numbers[j]
-		if sum == target {
-			return []int{i, j}
-		} else if sum < target {
-			i++
+func maxArea(height []int) int {
+	res, l, r := 0, 0, len(height)-1
+	for l < r {
+		minHeight := height[l]
+		if height[r] < minHeight {
+			minHeight = height[r]
+		}
+		cur := (r - l) * minHeight
+		if res < cur {
+			res = cur
+		}
+		if height[l] < height[r] {
+			l++
 		} else {
-			j--
+			r--
 		}
 	}
-	return []int{}
+	return res
 }
 
 func main() {
-	fmt.Println(twoSum([]int{1, 3, 5, 6, 7}, 9))
+	fmt.Println(maxArea([]int{1, 8, 6, 2, 5, 4, 8, 3, 7}))
 }
