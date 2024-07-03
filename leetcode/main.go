@@ -4,26 +4,54 @@ import (
 	"fmt"
 )
 
+// 0 1 0
+// 0 0 1
+// 1 1 1
+// 0 0 0
+// Input: board = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]
+// Output: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]
 // 题集：https://leetcode.cn/studyplan/top-interview-150/
-func minSubArrayLen(target int, nums []int) int {
-	left, sum, res := 0, 0, len(nums)+1
-	for i, n := range nums {
-		sum += n
-		for sum >= target {
-			sum -= nums[left]
-			if res > i-left+1 {
-				res = i - left + 1
+func gameOfLife(board [][]int) {
+	for i := 0; i < len(board); i++ {
+		for j := 0; j < len(board[0]); j++ {
+			count := lives(board, i, j)
+			if board[i][j] == 1 && (count < 2 || count > 3) {
+				board[i][j] = 3
+			} else if board[i][j] == 0 && count == 3 {
+				board[i][j] = 4
 			}
-			left++
 		}
 	}
-	if res == len(nums)+1 {
-		return 0
-	} else {
-		return res
+	for i := 0; i < len(board); i++ {
+		for j := 0; j < len(board[0]); j++ {
+			if board[i][j] == 3 {
+				board[i][j] = 0
+			} else if board[i][j] == 4 {
+				board[i][j] = 1
+			}
+		}
 	}
 }
 
+func lives(board [][]int, i int, j int) int {
+	res := 0
+	for m := i - 1; m <= i+1; m++ {
+		for n := j - 1; n <= j+1; n++ {
+			if m == i && n == j {
+				continue
+			}
+			if n >= 0 && m >= 0 && m < len(board) && n < len(board[0]) {
+				if board[m][n] == 1 || board[m][n] == 3 {
+					res++
+				}
+			}
+		}
+	}
+	return res
+}
+
 func main() {
-	fmt.Println(minSubArrayLen(7, []int{7, 3, 1, 2, 4, 3}))
+	arr1 := [][]int{{0, 1, 0}, {0, 0, 1}, {1, 1, 1}, {0, 0, 0}}
+	gameOfLife(arr1)
+	fmt.Println(arr1)
 }
