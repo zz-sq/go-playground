@@ -6,6 +6,7 @@ import (
 )
 
 // 题集：https://leetcode.cn/studyplan/top-interview-150/
+// 141 2 21 138 92
 func wordPattern(pattern string, s string) bool {
 	word := strings.Split(s, " ")
 	if len(pattern) != len(word) {
