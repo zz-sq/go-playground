@@ -1,40 +1,19 @@
 package main
 
-import (
-	"fmt"
-	"strings"
-)
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
 
 // 题集：https://leetcode.cn/studyplan/top-interview-150/
-// 141 2 21 138 92
-func wordPattern(pattern string, s string) bool {
-	word := strings.Split(s, " ")
-	if len(pattern) != len(word) {
-		return false
-	}
-	patternMaps := make(map[rune]string)
-	wordMaps := make(map[string]rune)
-	for i, p := range pattern {
-		if c, ok := patternMaps[p]; ok {
-			if c != word[i] {
-				return false
-			}
-		} else {
-			patternMaps[p] = word[i]
-		}
-		if c, ok := wordMaps[word[i]]; ok {
-			if c != p {
-				return false
-			}
-		} else {
-			wordMaps[word[i]] = p
-		}
-	}
-	return true
+// 199 637 102 103
+func averageOfLevels(root *TreeNode) []float64 {
+
 }
 
 func main() {
 	// arr1 := [][]int{{0, 1, 0}, {0, 0, 1}, {1, 1, 1}, {0, 0, 0}}
-	res := wordPattern("abba", "dosg cat cat dog")
-	fmt.Println(res)
+	// res := averageOfLevels("abba", "dosg cat cat dog")
+	// fmt.Println(res)
 }
