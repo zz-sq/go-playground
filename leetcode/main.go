@@ -12,40 +12,46 @@ type TreeNode struct {
 
 // 题集：https://leetcode.cn/studyplan/top-interview-150/
 
-func calculate(s string) int {
-	stack := []int{1}
-	ans, sign := 0, 1
-	for i := 0; i < len(s); {
-		c := s[i]
-		switch c {
-		case ' ':
-			i++
-		case '+':
-			sign = stack[len(stack)-1]
-			i++
-		case '-':
-			sign = -stack[len(stack)-1]
-			i++
-		case '(':
-			stack = append(stack, sign)
-			i++
-		case ')':
-			stack = stack[:len(stack)-1]
-			i++
-		default:
-			num := 0
-			for ; i < len(s) && '0' <= s[i] && s[i] <= '9'; i++ {
-				num = num*10 + int(s[i]-'0')
-			}
-			ans += sign * num
+func insert(intervals [][]int, newInterval []int) [][]int {
+	res := [][]int{}
+	i, start, end := 0, -1, -1
+	for i < len(intervals) {
+		if intervals[i][1] >= newInterval[0] {
+			start = i
+			break
+		} else {
+			res = append(res, intervals[i])
 		}
+		i++
 	}
-	return ans
+	if start == -1 {
+		res = append(res, newInterval)
+		return res
+	}
+
+	for i < len(intervals) {
+		if i == len(intervals)-1 || intervals[i+1][0] > newInterval[1] {
+			end = i
+			i++
+			break
+		}
+		i++
+	}
+	if end == -1 {
+		res = append(res, []int{intervals[start][0], newInterval[1]})
+		return res
+	}
+	res = append(res, []int{intervals[start][0], max(intervals[end][1], newInterval[1])})
+	for i < len(intervals) {
+		res = append(res, intervals[i])
+		i++
+	}
+	return res
 }
 
 func main() {
 	// arr1 := [][]int{{0, 1, 0}, {0, 0, 1}, {1, 1, 1}, {0, 0, 0}}
 	// res := averageOfLevels("abba", "dosg cat cat dog")
 	// fmt.Println(res)
-	fmt.Println(calculate("(1+(4+5+2)-3)+(6+8)"))
+	fmt.Println(insert([][]int{{1, 3}, {6, 9}}, []int{4, 5}))
 }
